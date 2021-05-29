@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "831449329491",
+    "project_id": "myatlabproject1",
+    "storage_bucket": "myatlabproject1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831449329491:android:7ce38e85bfac0c531ebba6",
+        "android_client_info": {
+          "package_name": "com.example.myatlabproject1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831449329491-kdjefgk5fdqakp7nqirc047cs48g5o0o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ6pQ-M-GX65oeElMGborc6qZMyay6Prg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831449329491-kdjefgk5fdqakp7nqirc047cs48g5o0o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
