@@ -1,8 +1,7 @@
 package com.example.myatlabproject1;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -11,29 +10,36 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 
 public class HomePage extends AppCompatActivity  {
     private Button lgout;
     private FirebaseAuth auth;
-    private Button mood;
-    private Button gotonotes;
+   // private Button mood;
+   // private Button gotonotes;
     private static final String TAG = "HomePage";
 
      RecyclerView myrecyclerView;
     NotesRecyclerAdapter notesRecyclerAdapter;
+    public CardView remind, mood, grocerylst, gotonotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+
+        remind= (CardView) findViewById(R.id.c1);
+        mood= (CardView) findViewById(R.id.c2);
+        grocerylst= (CardView) findViewById(R.id.c3);
+        gotonotes= (CardView) findViewById(R.id.c4);
+
+
+
         lgout=findViewById(R.id.logout);
-        mood=findViewById(R.id.button);
-        gotonotes=findViewById(R.id.button2);
+        //mood=findViewById(R.id.logout);
+        //gotonotes=findViewById(R.id.button2);
+
        myrecyclerView=(RecyclerView)findViewById(R.id.recycler_View);
 
         auth=FirebaseAuth.getInstance();
@@ -86,6 +92,25 @@ public class HomePage extends AppCompatActivity  {
                 startActivity(new Intent(HomePage.this,Notesapp.class));
 
 
+            }
+        });
+
+
+        remind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(HomePage.this,SetReminder.class);
+                startActivity(i);
+            }
+        });
+
+
+
+        grocerylst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(HomePage.this,GroceryList.class);
+                startActivity(i);
             }
         });
 

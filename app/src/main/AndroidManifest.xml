@@ -9,18 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyATLABProject1">
-        <activity android:name=".tracker_result"></activity>
+        <activity android:name=".GroceryList"></activity>
+        <activity android:name=".SetReminder" />
+        <activity android:name=".tracker_result" />
         <activity android:name=".Notesapp" />
         <activity android:name=".mood" />
         <activity android:name=".HomePage" />
         <activity android:name=".registrationpg" />
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".AlarmReceiver"/>
     </application>
 
 </manifest>

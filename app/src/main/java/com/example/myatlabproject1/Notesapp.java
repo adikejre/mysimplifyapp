@@ -142,6 +142,8 @@ public class Notesapp extends AppCompatActivity implements NotesRecyclerAdapter.
                         String newText=editText.getText().toString();
                         note.setText(newText);
                         snapshot.getReference().set(note);
+                        initRecyclerView(FirebaseAuth.getInstance().getCurrentUser());
+
                     }
                 })
                 .setNegativeButton("Cancel",null).show();
@@ -166,6 +168,7 @@ public class Notesapp extends AppCompatActivity implements NotesRecyclerAdapter.
                 //Toast.makeText(context, "delete my item", Toast.LENGTH_SHORT).show();
                 NotesRecyclerAdapter.NoteViewHolder noteViewHolder= (NotesRecyclerAdapter.NoteViewHolder) viewHolder;
                 noteViewHolder.deleteItem();
+                initRecyclerView(FirebaseAuth.getInstance().getCurrentUser());
             }
         }
 
@@ -176,7 +179,9 @@ public class Notesapp extends AppCompatActivity implements NotesRecyclerAdapter.
                     .addActionIcon(R.drawable.ic_baseline_delete_24)
                     .create()
                     .decorate();
+
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
         }
     };
 }
