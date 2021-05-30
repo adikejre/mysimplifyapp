@@ -3,6 +3,7 @@ package com.example.myatlabproject1;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,9 @@ public class mood extends AppCompatActivity {
     private ImageButton neutralbtn;
     private FirebaseAuth auth;
     private Button track;
+    private int happycount;
+    private int sedcount;
+    private int ntrlcount;
     private static final String TAG = "mood";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,10 @@ public class mood extends AppCompatActivity {
 //                .collection("moods")
 //                .whereEqualTo("userid",auth.getCurrentUser().getUid());
 
+
+       // CollectionReference docRef =  FirebaseFirestore.getInstance().collection("moods");
+
+
         hppybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +68,8 @@ public class mood extends AppCompatActivity {
                 Map<String,Object> map=new HashMap<>();
 
 
-                //map.put("happy", FieldValue.increment(1));
+//                map.put("happy", FieldValue.increment(1));
+//                docRef.whereEqualTo("userid",auth.getCurrentUser().getUid()).whereEqualTo("mood","happy").update(map);
 
                 map.put("mood","happy");
                 map.put("userid",userid);
@@ -111,10 +120,40 @@ public class mood extends AppCompatActivity {
                         .whereEqualTo("mood","happy").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        int aa=task.getResult().size();
-                        Log.d(TAG, "onComplete:----------------------->>>>>>>>>>>>>>>>>>>>> "+aa);
+                        happycount=task.getResult().size();
+                        Log.d(TAG, "onComplete:----------------------->>>>>>>>>>>>>>>>>>>>> "+happycount);
                     }
                 });
+
+                FirebaseFirestore.getInstance()
+                        .collection("moods")
+                        .whereEqualTo("userid",auth.getCurrentUser().getUid())
+                        .whereEqualTo("mood","sad").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        sedcount=task.getResult().size();
+                        Log.d(TAG, "onComplete:----------------------->>>>>>>>>>>>>>>>>>>>> "+sedcount);
+                    }
+                });
+
+                FirebaseFirestore.getInstance()
+                        .collection("moods")
+                        .whereEqualTo("userid",auth.getCurrentUser().getUid())
+                        .whereEqualTo("mood","neutral").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        ntrlcount=task.getResult().size();
+                        //Log.d(TAG, "onComplete:----------------------->>>>>>>>>>>>>>>>>>>>> "+aa);
+                    }
+                });
+
+
+                Intent myint=new Intent(mood.this,tracker_result.class);
+                myint.putExtra("hscore",happycount);
+                myint.putExtra("sscore",sedcount);
+                myint.putExtra("nscore",ntrlcount);
+                startActivity(myint);
+
 
             }
         });

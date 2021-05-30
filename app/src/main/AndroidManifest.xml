@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyATLABProject1">
-
+        <activity android:name=".tracker_result"></activity>
         <activity android:name=".Notesapp" />
         <activity android:name=".mood" />
         <activity android:name=".HomePage" />
