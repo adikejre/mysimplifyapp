@@ -3,6 +3,7 @@ package com.example.myatlabproject1;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +44,7 @@ public class registrationpg extends AppCompatActivity {
                     Toast.makeText(registrationpg.this, "password too short!", Toast.LENGTH_SHORT).show();
                 else{
                     registerUser(email_txt,pwd_txt);
+                    loginUser(email_txt,pwd_txt);
                 }
 
             }
@@ -53,11 +56,54 @@ public class registrationpg extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
+
+                {
                     Toast.makeText(registrationpg.this, "Successful Registration!", Toast.LENGTH_SHORT).show();
+
+
+                }
+
                 else
                     Toast.makeText(registrationpg.this, "Failed!", Toast.LENGTH_SHORT).show();
 
             }
         });
     }
+
+
+    private void loginUser(String my_email_txt, String pwd_txt) {
+
+
+
+        auth.signInWithEmailAndPassword(my_email_txt,pwd_txt).addOnCompleteListener(registrationpg.this,new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(registrationpg.this, "Login Success!", Toast.LENGTH_SHORT).show();
+                    Intent in=new Intent(registrationpg.this,HomePage.class);
+
+                    startActivity(in);
+                    //initRecyclerView(auth.getCurrentUser());
+                    //Log.d(TAG, "my current user ---------- "+auth.getCurrentUser().getUid());
+                    finish();
+                }
+                if(!task.isSuccessful()||!task.isComplete())
+                {
+                    Toast.makeText(registrationpg.this, "Wrong Password or email!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(registrationpg.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
+
+
+
 }
